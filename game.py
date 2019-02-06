@@ -124,12 +124,12 @@ class GameOfLife(object):
                 sys.exit()
             if self.config_stage and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # int 1 corresponds to left-click 
                 self.add_delete_cell(event.pos)
-            if self.config_stage and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            if self.config_stage and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:  # start game when player presses enter in initial stage
                 self.config_stage = False
                 return
             if not self.config_stage and event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 self.reset()
-            if event.type == pygame.KEYUP and (event.key == pygame.K_m or event.key == pygame.K_p):
+            if event.type == pygame.KEYUP and (event.key == pygame.K_m or event.key == pygame.K_p):  # detect zoom events with keyup to prevent repeated pressing
                 self.zoom(event.key)
         self.scroll()
         # self.zoom()
