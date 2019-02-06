@@ -104,7 +104,7 @@ class GameOfLife(object):
         neighbours, live_cells = {}, {}  # initialize empty dicts to store live cells and their neighbours
         for cell in self.cell_group:  # store live cells and initialize counts to zero
             live_cells[(cell.rect.x, cell.rect.y)] = 0
-        for key in live_cells:
+        for key in live_cells:  # count the live neighbours of all squares with at least one live neighbour
             for neighbour in self.get_cell_neighbours(key):
                 if neighbour in live_cells:
                     live_cells[neighbour] += 1
@@ -112,7 +112,7 @@ class GameOfLife(object):
                     neighbours[neighbour] += 1
                 else:
                     neighbours[neighbour] = 1
-        self.rules(live_cells, neighbours)      
+        self.rules(live_cells, neighbours)  # apply game of life rules to all squares with at least one live neighbour      
 
     def events(self):
     # listen for events in game loop
@@ -164,23 +164,19 @@ class GameOfLife(object):
     def zoom(self, key):
     # helper function to zoom in and out using keyboard
         zoom = 0
-        update_cells = False
         global BLOCKSIZE
-        if key == pygame.K_m and BLOCKSIZE > 2:
+        if key == pygame.K_m and BLOCKSIZE > 2:  # change blocksize based on input
             BLOCKSIZE = int(BLOCKSIZE / 2)
-            update_cells = True
             zoom = -1
         if key == pygame.K_p and BLOCKSIZE < 16:
             BLOCKSIZE = BLOCKSIZE * 2
-            update_cells = True
             zoom = 1
-        if update_cells:  # only redraw sprites if the zoom has been changed
-            for cell in self.cell_group:
-                cell.zoom_redraw(zoom)
+        for cell in self.cell_group:  # resize sprites
+            cell.zoom_redraw(zoom)
             
     def rules(self, live_cells, neighbours):
     # rules for updating cells
-        for key in neighbours:
+        for key in neighbours:  # use counts to update all squares with at least one live neighbour
             if neighbours[key] == 3:
                 x_pos, y_pos = key[0], key[1]
                 cell = LiveCell(x_pos, y_pos)
