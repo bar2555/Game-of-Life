@@ -56,8 +56,6 @@ class GameOfLife(object):
     # start a new game
         global BLOCKSIZE
         BLOCKSIZE = DEFAULT_BLOCKSIZE  # reset zoom to default
-        # self.screen.fill(BACK_COLOUR)
-        # self.draw_grid()
         self.cell_group = pygame.sprite.Group()  # this group holds all live cell sprites
         pygame.display.update()
         self.config_stage = True
@@ -132,7 +130,6 @@ class GameOfLife(object):
             if event.type == pygame.KEYUP and (event.key == pygame.K_m or event.key == pygame.K_p):  # detect zoom events with keyup to prevent repeated pressing
                 self.zoom(event.key)
         self.scroll()
-        # self.zoom()
                 
     def update(self):
     # draw updates after iterations, scrolling, etc. (only need to update sections within one square of a sprite)
