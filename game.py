@@ -5,11 +5,11 @@ import time
 WHITE = (255, 255, 255)  # define colours for pygame in (r, g, b) format
 BLACK = (0, 0, 0)
 BACK_COLOUR = WHITE  # background colour
-GRID_COLOUR = BLACK  # grid colour
+GRID_COLOUR = (192, 192, 192)  # grid colour
 SPRITE_COLOUR = BLACK  # colour of live cells
 
-WIDTH = 640  # set width and height of game window (should be multiples of 16)
-HEIGHT = 480
+WIDTH = 768  # set width and height of game window (must be multiples of 16 for correct zooming)
+HEIGHT = 576
 DEFAULT_BLOCKSIZE = 16  # grid block size (should be 8 or 16)
 BLOCKSIZE = DEFAULT_BLOCKSIZE
 
@@ -164,15 +164,19 @@ class GameOfLife(object):
     def zoom(self, key):
     # helper function to zoom in and out using keyboard
         zoom = 0
+        resize = False
         global BLOCKSIZE
         if key == pygame.K_m and BLOCKSIZE > 2:  # change blocksize based on input
             BLOCKSIZE = int(BLOCKSIZE / 2)
             zoom = -1
+            resize = True
         if key == pygame.K_p and BLOCKSIZE < 16:
             BLOCKSIZE = BLOCKSIZE * 2
             zoom = 1
-        for cell in self.cell_group:  # resize sprites
-            cell.zoom_redraw(zoom)
+            resize = True
+        if resize:
+            for cell in self.cell_group:  # only resize sprites when grid is resized
+                cell.zoom_redraw(zoom)
             
     def rules(self, live_cells, neighbours):
     # rules for updating cells

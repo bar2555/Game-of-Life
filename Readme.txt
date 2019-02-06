@@ -4,7 +4,7 @@ Game of Life
 - The game only ends when the user ends the game by quitting or starting a new game
 - Other than this, I have made no additional assumptions outside of the given instructions.
 Within the architecture of the game, the grid world is infinite, although there would eventually be an error
-if a cell moves far enough off of the screen, depending on the available memory.
+if a cell moves far enough off of the screen or enough cells are created, depending on the available memory.
 
 ---Gameplay---
 - Run the game by running game.py
